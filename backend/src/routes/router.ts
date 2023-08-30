@@ -12,5 +12,6 @@ router.post("/createuser", userController.createUser);
 router.use(jwtFilter.checkToken);
 
 router.get("/user/settings", settingsController.getSettings);
+router.patch("/settings/update", settingsController.updateSettings);
 
 export default router;
