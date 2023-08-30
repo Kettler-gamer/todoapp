@@ -24,4 +24,18 @@ async function addNewTodo(username:string, newTodo: AddTodo): Promise<ResultSetH
     return result[0] as ResultSetHeader[];
 }
 
-export default { addNewTodo };
+async function getTodos(username: string){
+    const sql = `
+    SELECT title, content, createdAt, expiresAt, state FROM todos 
+    INNER JOIN usertodos 
+    INNER JOIN users
+    WHERE users.username = ? AND
+    users.id = usertodos.userID AND
+    usertodos.todoID = todos.id`.split("\n").join("");
+
+    const result = await connection.promise().query(sql, [username]);
+
+    return result[0];
+}
+
+export default { addNewTodo, getTodos };

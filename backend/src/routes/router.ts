@@ -13,6 +13,7 @@ router.post("/createuser", userController.createUser);
 router.use(jwtFilter.checkToken);
 
 router.post("/todo/add", todoController.addTodo);
+router.get("/todo/get", todoController.getTodos);
 
 router.get("/user/settings", settingsController.getSettings);
 router.patch("/settings/update", settingsController.updateSettings);

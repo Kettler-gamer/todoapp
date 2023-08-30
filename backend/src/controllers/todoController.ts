@@ -17,4 +17,12 @@ async function addTodo(req:Request, res:Response){
     }
 }
 
-export default {addTodo};
+async function getTodos(req:Request, res:Response){
+    const {username} = res.locals.jwtPayload;
+
+    const result = await todoService.getTodos(username).catch(error => console.log(error));
+    
+    res.status(200).send({result});
+}
+
+export default {addTodo, getTodos};
