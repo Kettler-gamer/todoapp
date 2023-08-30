@@ -17,6 +17,16 @@ export function Main({user, setUser}: MainProps): JSX.Element{
         setUser(newUser);
     }
 
+    function updateTodo(todoUpdate: Todo){
+        const newUser = user;
+        newUser.todos = newUser.todos.map(todo => {
+            if(todo === todoUpdate){
+                return todoUpdate
+            }
+            return todo;
+        })
+    }
+
     function onSettingsClick(){
         navigate("/settings");
     }
@@ -26,6 +36,6 @@ export function Main({user, setUser}: MainProps): JSX.Element{
         <h1>Welcome {user.username}</h1>
         <button onClick={onSettingsClick}>Settings</button>
         <AddTodo addTodo={addTodo} />
-        <TodoList user={user}/>
+        <TodoList user={user} updateTodo={updateTodo}/>
     </div>);
 }

@@ -1,13 +1,14 @@
-import { User } from "../Types/Types"
+import { Todo, User } from "../Types/Types"
 import { TodoItem } from "./TodoItem"
 
 interface TodoListProps {
     user:User
+    updateTodo: (newUser: Todo) => void
 }
 
-export function TodoList({user}: TodoListProps): JSX.Element{
+export function TodoList({user, updateTodo}: TodoListProps): JSX.Element{
     return (
     <div>
-        {user.todos.map((todo, index) => <TodoItem key={`todo-${index}`} todo={todo}/>)}
+        {user.todos.map((todo, index) => <TodoItem key={`todo-${index}`} todo={todo} updateTodo={updateTodo}/>)}
     </div>)
 }
