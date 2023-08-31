@@ -18,10 +18,8 @@ function App() {
 
   useEffect(() => {
     const token: string = sessionStorage.getItem("token") as string;
-
-    console.log(token);
     
-    if(token !== undefined){
+    if(token !== null){
       getUserData(token)
     }
   }, [setUser]);

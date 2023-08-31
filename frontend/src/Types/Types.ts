@@ -10,6 +10,7 @@ export interface UserSetting {
 }
 
 export interface Todo {
+  id?: number;
   title: string;
   content: string;
   createdAt: Date;
