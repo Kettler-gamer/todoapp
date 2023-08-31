@@ -25,7 +25,7 @@ export function AddTodo({addTodo}: AddTodoProps): JSX.Element {
             title: info.title,
             content: info.content,
             createdAt: new Date(),
-            expireAt: info.expireDate || null,
+            expiresAt: info.expireDate || null,
             state: "NEW"
         }
 

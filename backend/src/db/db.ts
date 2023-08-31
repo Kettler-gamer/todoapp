@@ -4,7 +4,8 @@ const connection = mysql2.createConnection({
     host: process.env.HOST,
     user: process.env.DBUSERNAME,
     password: process.env.DBPASSWORD,
-    multipleStatements: true
+    multipleStatements: true,
+    timezone: '+00:00'
 })
 
 connection.connect((connectionError) => {

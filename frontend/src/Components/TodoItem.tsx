@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { Todo, TodoState } from "../Types/Types"
 import { fetchJson } from "../Other/fetchJson";
 
@@ -8,6 +8,14 @@ interface TodoItemProps {
 }
 
 export function TodoItem({todo, updateTodo}: TodoItemProps): JSX.Element {
+    const [title, setTitle] = useState<string>(todo.title);
+    const [editTitle, setEditTitle] = useState<boolean>(false);
+
+    const [content, setContent] = useState<string>(todo.content);
+    const [editContent, setEditContent] = useState<boolean>(false);
+
+    const [expireAt, setExpireAt] = useState<Date | null>(todo.expiresAt);
+    const [editExpireAt, setEditExpireAt] = useState<boolean>(false);
 
     async function onStateChange(e:ChangeEvent<HTMLSelectElement>){
         const newTodo = todo;
@@ -25,12 +33,80 @@ export function TodoItem({todo, updateTodo}: TodoItemProps): JSX.Element {
         }
     }
 
+    function titleEditSwitch(){
+        setEditTitle(!editTitle);
+    }
+
+    function onTitleValueChanged(e: ChangeEvent<HTMLInputElement>){
+        setTitle(e.target.value);
+    }
+
+    async function onTitleEditBlur(){
+        setEditTitle(false);
+
+        if(title === todo.title) return;
+
+        const result = await fetchJson("/todo/update", "PATCH", {id:todo.id, title});
+
+        const json = await result.json();
+
+        console.log(json.message);
+    }
+
+    function contentEditSwitch(){
+        setEditContent(!editContent);
+    }
+
+    function onContentValueChanged(e: ChangeEvent<HTMLInputElement>){
+        setContent(e.target.value);
+    }
+
+    async function onContentEditBlur(){
+        setEditContent(false);
+
+        if(content === todo.content) return;
+
+        const result = await fetchJson("/todo/update", "PATCH", {id:todo.id, content});
+
+        const json = await result.json();
+
+        console.log(json.message);
+    }
+
+    function expireAtSwitch(){
+        setEditExpireAt(!editExpireAt);
+    }
+
+    function onExpireAtValueChanged(e: ChangeEvent<HTMLInputElement>){
+        const date = new Date(e.target.value);
+        console.log(date.toLocaleString());
+        setExpireAt(date);
+    }
+
+    async function onExpireAtBlur(){
+        setEditExpireAt(false);
+
+        const result = await fetchJson("/todo/update", "PATCH", {id:todo.id, expiresAt: expireAt?.toLocaleString()});
+
+        const json = await result.json();
+
+        if(result.status < 400){
+            todo.expiresAt = expireAt;
+            updateTodo(todo);
+        }
+
+        console.log(json.message);
+    }
+
     return (
     <article>
-        <h3>{todo.title}</h3>
-        <p>{todo.content}</p>
-        <p>Created: {todo.createdAt.toLocaleString()}</p>
-        <p>Expires: {todo.expireAt?.toLocaleString() || "No expiration date"}</p>
+        {editTitle ? <input autoFocus onBlur={onTitleEditBlur} value={title} onChange={onTitleValueChanged}/> : <h3 onClick={titleEditSwitch}>{title}</h3>}
+        {editContent ? <input autoFocus onBlur={onContentEditBlur} value={content} onChange={onContentValueChanged}/> : <p onClick={contentEditSwitch}>{content}</p>}
+        <p>Created: {todo.createdAt.toLocaleString().split("T").join(" ").substring(0,16)}</p>
+        <p>Expires: {editExpireAt ? <input autoFocus type="datetime-local" onChange={onExpireAtValueChanged} onBlur={onExpireAtBlur}/> : 
+        <span onClick={expireAtSwitch}>{todo.expiresAt !== null ? 
+            todo.expiresAt.toLocaleString().split("T").join(" ").substring(0,16) : 
+        "No expiration date"}</span>}</p>
         <p>Status: 
             <select defaultValue={todo.state} onChange={onStateChange}>
                 <option value={"FINISHED"}>FINISHED</option>
