@@ -1,8 +1,8 @@
-import { Todo, User } from "../Types/Types"
+import { User } from "../Types/Types"
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserSetting } from "../Types/Types";
 import { fetchJson } from "../Other/fetchJson";
+import { fetchUserData } from "../Other/fetchUserData";
 
 interface LoginProps {
     setUser: (userData: User) => void;
@@ -23,22 +23,9 @@ export function Login({setUser}: LoginProps): JSX.Element{
         if(result.status < 400){
             sessionStorage.setItem("token", json.token);
 
-            const settingsResult = await fetchJson("/user/settings", "GET");
-            const settingsJson = await settingsResult.json();
+            const user = await fetchUserData(json.token);
 
-            const userSettings: UserSetting = settingsJson.settings as UserSetting;
-            
-            const todosResult = await fetchJson("/todo/get", "GET");
-            const todosJson = await todosResult.json();
-
-            const payload = JSON.parse(atob(json.token.split(".")[1]));
-
-            setUser({
-                username,
-                role: payload.role,
-                todos: todosJson.result as Todo[],
-                settings: userSettings
-            })
+            setUser(user);
 
             navigate("/main");
         }

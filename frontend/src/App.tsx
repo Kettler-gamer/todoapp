@@ -3,12 +3,28 @@ import { Login } from "./Pages/Login";
 import { Main } from "./Pages/Main";
 import { Settings } from "./Pages/Settings";
 import { User } from "./Types/Types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchUserData } from "./Other/fetchUserData";
 
 function App() {
 
   const [user, setUser] = useState<User>();
 
+  async function getUserData(token: string) {
+    const fetchedUser = await fetchUserData(token);
+
+    setUser(fetchedUser);
+  }
+
+  useEffect(() => {
+    const token: string = sessionStorage.getItem("token") as string;
+
+    console.log(token);
+    
+    if(token !== undefined){
+      getUserData(token)
+    }
+  }, [setUser]);
 
   return (
   <BrowserRouter>
