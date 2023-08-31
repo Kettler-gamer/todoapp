@@ -22,7 +22,7 @@ function initializeDb(){
     
     const sql:string = `CREATE DATABASE tododb;
     USE tododb;
-    CREATE TABLE users (id INT auto_increment PRIMARY KEY, username char(255) NOT NULL UNIQUE, password char(255) NOT NULL, role ENUM('USER', 'ADMIN') NOT NULL);
+    CREATE TABLE users (id INT auto_increment PRIMARY KEY, username char(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL UNIQUE, password char(255) NOT NULL, role ENUM('USER', 'ADMIN') NOT NULL);
     CREATE TABLE todos (id INT auto_increment PRIMARY KEY, title char(255) NOT NULL, content char(255) NOT NULL, createdAt DATETIME NOT NULL, expiresAt DATETIME, state ENUM('NEW', 'UNFINISHED', 'EXPIRED', 'FINISHED') NOT NULL);
     CREATE TABLE usertodos (id INT auto_increment PRIMARY KEY, userID INT NOT NULL, FOREIGN KEY(userID) REFERENCES users(id), todoID INT NOT NULL, FOREIGN KEY(todoID) REFERENCES todos(id));
     CREATE TABLE settings (id INT auto_increment PRIMARY KEY, theme ENUM('DARK', 'LIGHT') NOT NULL, expireAutomatically BOOL NOT NULL, sendReminders BOOL NOT NULL, reminderInterval INT NOT NULL);
