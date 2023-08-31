@@ -1,5 +1,6 @@
 import { ResultSetHeader } from "mysql2";
 import connection from "../db/db";
+import { TodoUpdate } from "../types/TodoUpdate";
 
 async function addNewTodo(username:string, newTodo: AddTodo): Promise<ResultSetHeader[]> {
     const columnsUpdate: Array<[string, any]> = new Array<[string, any]>;
@@ -26,7 +27,7 @@ async function addNewTodo(username:string, newTodo: AddTodo): Promise<ResultSetH
 
 async function getTodos(username: string){
     const sql = `
-    SELECT title, content, createdAt, expiresAt, state FROM todos 
+    SELECT todos.id, title, content, createdAt, expiresAt, state FROM todos 
     INNER JOIN usertodos 
     INNER JOIN users
     WHERE users.username = ? AND
@@ -38,4 +39,24 @@ async function getTodos(username: string){
     return result[0];
 }
 
-export default { addNewTodo, getTodos };
+async function updateTodo(username: string, id:number, todoUpdates: TodoUpdate): Promise<ResultSetHeader> {
+    const columnsUpdate: Array<[string, any]> = new Array<[string, any]>;
+
+    Object.entries(todoUpdates).forEach(update => {
+        if(update[1] !== undefined){
+            columnsUpdate.push([`todos.${update[0]} = ?`, update[1]]);
+        }
+    })
+    
+    const sql = `
+    UPDATE todos 
+    JOIN usertodos ON todos.id = usertodos.todoID 
+    JOIN users ON usertodos.userID = users.id AND todos.id = ? AND users.username = ? 
+    SET ${columnsUpdate.map(upd => upd[0]).join(", ")}`.split("\n").join("");
+
+    const result = await connection.promise().query(sql, [id, username, ...columnsUpdate.map(upd => upd[1])]);
+
+    return result[0] as ResultSetHeader;
+}
+
+export default { addNewTodo, getTodos, updateTodo };

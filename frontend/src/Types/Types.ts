@@ -14,7 +14,7 @@ export interface Todo {
   content: string;
   createdAt: Date;
   expireAt: Date | null;
-  todoState: TodoState;
+  state: TodoState;
 }
 
 export interface User {
