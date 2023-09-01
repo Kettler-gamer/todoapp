@@ -12,7 +12,7 @@ async function addTodo(req:Request, res:Response) {
         .catch(error => console.log(error))) as ResultSetHeader[];
     
     if(result[0].affectedRows === 1 && result[1].affectedRows === 1){
-        res.status(201).send({message: "The todo was added!"});
+        res.status(201).send({message: "The todo was added!", todoid:result[2]});
     }else{
         createError("Something went wrong!", 500, res);
     }

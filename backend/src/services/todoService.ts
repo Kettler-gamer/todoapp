@@ -17,7 +17,8 @@ async function addNewTodo(username:string, newTodo: AddTodo): Promise<ResultSetH
     INSERT INTO todos (${columnsUpdate.map(up => up[0]).join(", ")}, createdAt, state) 
     VALUES (${columnsUpdate.map(() => "?").join(", ")}, '${currentDate}', 'NEW');
     INSERT INTO usertodos (todoID, userID) SELECT MAX(todos.id), users.id FROM todos 
-    INNER JOIN users WHERE username = ?`.split("\n").join("");
+    INNER JOIN users WHERE username = ?;
+    SELECT MAX(id) AS id FROM todos;`.split("\n").join("");
 
     const result = await connection.promise().query(sql, 
         [...columnsUpdate.map(up => up[1]), username]);
