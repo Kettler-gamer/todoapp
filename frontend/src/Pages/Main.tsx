@@ -27,14 +27,8 @@ export function Main({user, setUser}: MainProps): JSX.Element{
         })
     }
 
-    function onSettingsClick(){
-        navigate("/settings");
-    }
-
     return (
     <div>
-        <h1>Welcome {user.username}</h1>
-        <button onClick={onSettingsClick}>Settings</button>
         <AddTodo addTodo={addTodo} />
         <TodoList user={user} updateTodo={updateTodo}/>
     </div>);

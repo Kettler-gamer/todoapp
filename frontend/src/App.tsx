@@ -6,6 +6,7 @@ import { User } from "./Types/Types";
 import { useEffect, useState } from "react";
 import { fetchUserData } from "./Other/fetchUserData";
 import "./styling/stylesheet/main.css";
+import { Header } from "./Components/Header";
 
 function App() {
 
@@ -27,12 +28,20 @@ function App() {
 
   return (
   <BrowserRouter>
+    <Header user={user}/>
     <Routes>
       <Route index element={<Login setUser={setUser} />}/>
       {user !== undefined && 
       <>
-        <Route path="/main" element={<Main user={user} setUser={setUser} />}/>
-        <Route path="/settings" element={<Settings user={user} setUser={setUser} />}/>
+        <Route path="/main" element={<>
+          {/* <Header user={user}/> */}
+          <Main user={user} setUser={setUser} />
+        </>
+        }/>
+        <Route path="/settings" element={<>
+          {/* <Header user={user}/> */}
+          <Settings user={user} setUser={setUser} />
+          </>}/>
       </>}
       <Route path="*" element={<h1>This is not the page you are looking for...</h1>}/>
     </Routes>
