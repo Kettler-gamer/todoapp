@@ -5,7 +5,7 @@ export type TodoState = "NEW" | "UNFINISHED" | "EXPIRED" | "FINISHED"
 export interface UserSetting {
   preferredTheme: Theme;
   expireAutomatically: boolean; // set todo to expire if expireAt passed
-  sendReminder: boolean; // send close to deadline reminders
+  sendReminders: boolean; // send close to deadline reminders
   reminderInterval: number; // time in ms to send reminder if sendReminder is true
 }
 

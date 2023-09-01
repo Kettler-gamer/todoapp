@@ -3,7 +3,7 @@ import { SettingsUpdate } from "../types/settingsUpdate";
 
 async function getUserSettings(username: string){
     const sql = `
-    SELECT settings.theme, settings.expireAutomatically, settings.sendReminders, settings.reminderInterval 
+    SELECT settings.theme AS preferredTheme, settings.expireAutomatically, settings.sendReminders, settings.reminderInterval 
     FROM settings 
     INNER JOIN usersettings 
     INNER JOIN users 
@@ -32,12 +32,10 @@ async function updateSettings(username: string, updates:SettingsUpdate) {
     userSettings.userID = users.id AND 
     users.username = ?;
     `.split("\n").join("");
-
-    console.log(sql);
     
     const result = await connection.promise().query(sql, [...columnsUpdate.map(update => update[1]), username]);
 
-    console.log(result);
+    return result[0];
 }
 
 export default { getUserSettings, updateSettings };

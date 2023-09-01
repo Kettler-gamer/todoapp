@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import settingsService from "../services/settingsService";
-import { RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 import { SettingsUpdate, Theme } from "../types/settingsUpdate";
 
 async function getSettings(req: Request, res: Response){
@@ -13,11 +13,17 @@ async function getSettings(req: Request, res: Response){
 
 async function updateSettings(req:Request, res:Response){
     const { jwtPayload } = res.locals;
-    const { theme, expireAutomatically, sendReminders, reminderInterval } = req.body;
+    const { preferredTheme, expireAutomatically, sendReminders, reminderInterval } = req.body;
 
-    const updates: SettingsUpdate = {theme: theme as Theme, expireAutomatically, sendReminders, reminderInterval};
+    const updates: SettingsUpdate = {theme: preferredTheme as Theme, expireAutomatically, sendReminders, reminderInterval};
 
-    const result = await settingsService.updateSettings(jwtPayload.username, updates);
+    const result = await settingsService.updateSettings(jwtPayload.username, updates) as ResultSetHeader;
+
+    if(result.affectedRows >= 1){
+        res.status(200).send({message:"Settings were updated!"});
+    }else{
+        res.status(500).send({message:"Something went wrong!"});
+    }
 }
 
 export default { getSettings, updateSettings };
