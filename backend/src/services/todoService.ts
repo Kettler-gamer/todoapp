@@ -6,7 +6,7 @@ async function addNewTodo(username:string, newTodo: AddTodo): Promise<ResultSetH
     const columnsUpdate: Array<[string, any]> = new Array<[string, any]>;
 
     Object.entries(newTodo).forEach(update => {
-        if(update[1] !== undefined){
+        if(update[1] !== undefined && update[1] !== null){
             columnsUpdate.push([`${update[0]}`, update[1]]);
         }
     })

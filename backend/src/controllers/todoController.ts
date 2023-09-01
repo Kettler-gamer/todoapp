@@ -6,7 +6,9 @@ import { TodoUpdate } from "../types/TodoUpdate";
 
 async function addTodo(req:Request, res:Response) {
     const {username} = res.locals.jwtPayload;
-    const newTodo: AddTodo = req.body;
+    const {title, content, expiresAt} = req.body;
+
+    const newTodo: AddTodo = {title, content, expiresAt};
 
     const result: ResultSetHeader[] = (await todoService.addNewTodo(username, newTodo)
         .catch(error => console.log(error))) as ResultSetHeader[];

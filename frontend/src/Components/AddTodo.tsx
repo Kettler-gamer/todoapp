@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { Todo } from "../Types/Types"
+import { fetchJson } from "../Other/fetchJson";
 
 interface AddTodoProps {
     addTodo: (todo: Todo) => void
@@ -18,7 +19,7 @@ export function AddTodo({addTodo}: AddTodoProps): JSX.Element {
         setInfo({...info, expireDate});
     }
 
-    function onSubmit(e: FormEvent<HTMLFormElement>){
+    async function onSubmit(e: FormEvent<HTMLFormElement>){
         e.preventDefault();
 
         const newTodo: Todo = {
@@ -29,11 +30,17 @@ export function AddTodo({addTodo}: AddTodoProps): JSX.Element {
             state: "NEW"
         }
 
-        addTodo(newTodo);
+        const result = await fetchJson("/todo/add", "POST", {title:info.title, content:info.content, expiresAt: info.expireDate});
 
-        setInfo({title:"", content:""});
+        const jsonResult = await result.json();
 
-        e.currentTarget.reset();
+        if(result.status < 400){
+            newTodo.id = jsonResult.todoid[0].id;
+            addTodo(newTodo);
+            setInfo({title:"", content:""});
+            e.currentTarget?.reset();
+        }
+        console.log(jsonResult.message);
     }
 
     return (
