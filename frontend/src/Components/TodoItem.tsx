@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { Todo, TodoState } from "../Types/Types"
 import { fetchJson } from "../Other/fetchJson";
+import { convertToLocalDateFormat } from "../Other/convertDate";
 
 interface TodoItemProps {
     todo: Todo
@@ -103,9 +104,7 @@ export function TodoItem({todo, updateTodo}: TodoItemProps): JSX.Element {
         console.log(json.message);
     }
 
-    function convertToLocalDateFormat(date: string): string{
-        return date.split("T").join(" ").substring(0,16);
-    }
+    
 
     return (
     <article className="todo-item">

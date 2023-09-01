@@ -2,7 +2,10 @@
 @use "./components/addTodo" as *;
 @use "./components/todoList" as *;
 @use "./components/todoItem" as *;
+@use "./components/header" as *;
+@use "./Pages/settings" as *;
 @use "./Pages/home" as *;
+@use "./Pages/login" as *;
 
 * {
   margin: 0;

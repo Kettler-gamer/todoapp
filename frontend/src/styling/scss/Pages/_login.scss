@@ -1,0 +1,21 @@
+@use "../abstract/variables" as *;
+
+.login-form {
+  background-color: $CDarkerYellow;
+  color: white;
+  width: 20em;
+  height: 15em;
+  padding: 1em;
+  margin: 2em auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  border-radius: 0.25em;
+  box-shadow: 0 0 15px black;
+  input {
+    padding: 0.5em;
+    border: none;
+    border-radius: 0.25em;
+  }
+}

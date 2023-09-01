@@ -2,10 +2,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { User } from "../Types/Types";
 
 interface HeaderProps {
-    user: User | undefined
+    user: User | undefined;
+    setUser: (user: undefined) => void;
 }
 
-export function Header({user}: HeaderProps) {
+export function Header({user, setUser}: HeaderProps) {
     const navigate = useNavigate();
     const href = useLocation();
 
@@ -17,13 +18,27 @@ export function Header({user}: HeaderProps) {
         navigate("/main");
     }
 
+    function logoutClick(){
+        sessionStorage.clear();
+        setUser(undefined);
+        navigate("/");
+    }
+
+    const logoutBtn = <button onClick={logoutClick}>Logout</button>
+
     const button = href.pathname === "/main" ? 
-    <button onClick={onSettingsClick}>Settings</button> : 
+
+    <><button onClick={onSettingsClick}>Settings</button>{logoutBtn}</> : 
+
     href.pathname === "/settings" ? 
-    <button onClick={mainClick}>Main</button> : undefined
+
+    <><button onClick={mainClick}>Main</button>{logoutBtn}</> : 
+
+    undefined;
+    
 
     return (<header className="header">
         <h1>Welcome {user?.username}</h1>
-        {user !== undefined && button}
+        <div className="header-btns">{user !== undefined && button}</div>
     </header>);
 }

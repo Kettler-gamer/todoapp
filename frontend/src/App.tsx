@@ -28,7 +28,7 @@ function App() {
 
   return (
   <BrowserRouter>
-    <Header user={user}/>
+    <Header setUser={setUser} user={user}/>
     <Routes>
       <Route index element={<Login setUser={setUser} />}/>
       {user !== undefined && 

@@ -12,10 +12,12 @@ interface LoginProps {
 export function Login({setUser}: LoginProps): JSX.Element{
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [serverMessage, setServerMessage] = useState<string>("");
     const navigate = useNavigate();
 
     async function onSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        setServerMessage("");
 
         const result = await fetchJson("/auth/login", "POST", {username, password});
         const json = await result.json();
@@ -29,17 +31,21 @@ export function Login({setUser}: LoginProps): JSX.Element{
 
             navigate("/main");
         }
+
+        setServerMessage(json.message);
     }
 
     function handleChange(value: string, setter: (value:string) => void){
         setter(value);
     }
 
-    return (<div>
-        <form onSubmit={onSubmit}>
-            <input required placeholder="username" value={username} onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value, setUsername)}/>
-            <input required placeholder="password" value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value, setPassword)} type="password"/>
+    return (
+        <form onSubmit={onSubmit} className="login-form">
+            <h2>Login</h2>
+            <input required placeholder="Username" value={username} onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value, setUsername)}/>
+            <input required placeholder="Password" value={password} onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value, setPassword)} type="password"/>
             <button type="submit">Login</button>
+            <p className="server-message">{serverMessage}</p>
         </form>
-        </div>)
+        )
 }

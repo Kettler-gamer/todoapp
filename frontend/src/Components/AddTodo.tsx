@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { Todo } from "../Types/Types"
 import { fetchJson } from "../Other/fetchJson";
+import { convertToLocalDateFormat } from "../Other/convertDate";
 
 interface AddTodoProps {
     addTodo: (todo: Todo) => void
@@ -30,7 +31,10 @@ export function AddTodo({addTodo}: AddTodoProps): JSX.Element {
             state: "NEW"
         }
 
-        const result = await fetchJson("/todo/add", "POST", {title:info.title, content:info.content, expiresAt: info.expireDate});
+        const result = await fetchJson("/todo/add", "POST", {
+            title:info.title, 
+            content:info.content, 
+            expiresAt: (info.expireDate !== null && info.expireDate !== undefined) ? convertToLocalDateFormat(info.expireDate.toLocaleString()) : null});
 
         const jsonResult = await result.json();
 

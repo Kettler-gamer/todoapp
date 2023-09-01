@@ -45,11 +45,12 @@ export function Settings({user, setUser}: SettingsProps): JSX.Element {
     }
 
     return (
-    <div>
+    <div className="settings-page">
+        <h2>Settings</h2>
         <p>Expire Automatically <input type="checkbox" onChange={handleExpireAutomaticallyChange} checked={settings.expireAutomatically}/></p>
         <p>Send reminder <input type="checkbox" onChange={handleSendReminderChange} checked={settings.sendReminders}/></p>
-        <p>Reminder interval <input type="number" onChange={handleReminderIntervalChange} value={settings.reminderInterval}/></p>
-        <p>Theme <select defaultValue={settings.preferredTheme} onChange={handleThemeChange}>
+        <p>Reminder interval <input className="reminder-interval-input" type="number" onChange={handleReminderIntervalChange} value={settings.reminderInterval}/></p>
+        <p>Theme <select className="theme-select" defaultValue={settings.preferredTheme} onChange={handleThemeChange}>
             <option value={"DARK"}>Dark</option>
             <option value={"LIGHT"}>Light</option>
             </select></p>
