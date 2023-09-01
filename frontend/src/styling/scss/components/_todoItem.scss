@@ -1,6 +1,7 @@
 @use "../abstract/variables" as *;
 
 .todo-list {
+  list-style-type: none;
   .todo-item {
     background-color: $CDarkerYellow;
     display: flex;
@@ -13,6 +14,12 @@
     border-radius: 0.25em;
     .created-at-text {
       margin-top: auto;
+    }
+    .cursor-pointer {
+      cursor: pointer;
+    }
+    .cursor-default {
+      cursor: default;
     }
   }
 }

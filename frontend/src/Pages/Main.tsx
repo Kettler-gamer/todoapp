@@ -26,7 +26,7 @@ export function Main({user, setUser}: MainProps): JSX.Element{
     }
 
     return (
-    <div>
+    <div className="main-page">
         <AddTodo addTodo={addTodo} />
         <TodoList user={user} updateTodo={updateTodo}/>
     </div>);

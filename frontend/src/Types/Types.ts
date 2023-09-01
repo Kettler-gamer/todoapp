@@ -1,6 +1,6 @@
 export type Theme = "DARK" | "LIGHT";
 export type UserRole = "USER" | "ADMIN";
-export type TodoState = "NEW" | "UNFINISHED" | "EXPIRED" | "FINISHED"
+export type TodoState = "NEW" | "UNFINISHED" | "EXPIRED" | "FINISHED" | "ANY"
 
 export interface UserSetting {
   preferredTheme: Theme;

@@ -21,7 +21,13 @@ h1 {
   text-align: center;
 }
 
+h1,
+h2 {
+  cursor: default;
+}
+
 button {
+  cursor: pointer;
   background-color: $CDarkerYellow;
   color: $CBrighterYellow;
   border: none;

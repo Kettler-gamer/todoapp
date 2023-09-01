@@ -104,24 +104,33 @@ export function TodoItem({todo, updateTodo}: TodoItemProps): JSX.Element {
         console.log(json.message);
     }
 
-    
+    const titleElement = editTitle ? 
+        <input autoFocus onBlur={onTitleEditBlur} value={title} onChange={onTitleValueChanged}/> : 
+        <h3 className="cursor-pointer" onClick={titleEditSwitch}>{title}</h3>;
 
-    return (
-    <article className="todo-item">
-        {editTitle ? <input autoFocus onBlur={onTitleEditBlur} value={title} onChange={onTitleValueChanged}/> : <h3 onClick={titleEditSwitch}>{title}</h3>}
-        {editContent ? <input autoFocus onBlur={onContentEditBlur} value={content} onChange={onContentValueChanged}/> : <p onClick={contentEditSwitch}>{content}</p>}
-        <p className="created-at-text">Created: {convertToLocalDateFormat(todo.createdAt.toLocaleString())}</p>
-        <p>Expires: {editExpireAt ? <input autoFocus type="datetime-local" onChange={onExpireAtValueChanged} onBlur={onExpireAtBlur}/> : 
-        <span onClick={expireAtSwitch}>{todo.expiresAt !== null ? 
+    const contentElement = editContent ? 
+        <input autoFocus onBlur={onContentEditBlur} value={content} onChange={onContentValueChanged}/> : 
+        <p className="cursor-pointer" onClick={contentEditSwitch}>{content}</p>
+
+    const expireAtElement = editExpireAt ? <input autoFocus type="datetime-local" onChange={onExpireAtValueChanged} onBlur={onExpireAtBlur}/> : 
+        <span className="cursor-pointer" onClick={expireAtSwitch}>{todo.expiresAt !== null ? 
             convertToLocalDateFormat(todo.expiresAt.toLocaleString()) : 
-        "No expiration date"}</span>}</p>
-        <p className="">Status: 
-            <select defaultValue={todo.state} onChange={onStateChange}>
+        "No expiration date"}</span>;
+
+    return (<li>
+        <article className="todo-item">
+        {titleElement}
+        {contentElement}
+        <p className="created-at-text cursor-default">Created: {convertToLocalDateFormat(todo.createdAt.toLocaleString())}</p>
+        <p className="cursor-default">Expires: {expireAtElement}</p>
+        <p className="cursor-default">Status: 
+            <select className="cursor-pointer" defaultValue={todo.state} onChange={onStateChange}>
                 <option value={"FINISHED"}>FINISHED</option>
                 <option value={"UNFINISHED"}>UNFINISHED</option>
                 <option value={"EXPIRED"}>EXPIRED</option>
                 <option value={"NEW"}>NEW</option>
             </select>
             </p>
-    </article>)
+        </article>
+    </li>);
 }

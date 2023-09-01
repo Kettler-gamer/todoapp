@@ -1,10 +1,66 @@
 @use "../abstract/variables" as *;
 
-.todo-list {
+.list-container {
+  background-color: $CDarkYellow;
+  padding-top: 1em;
   margin-top: 1em;
-  display: flex;
-  flex-wrap: wrap;
-  width: 100vw;
-  gap: 0.5em;
-  justify-content: center;
+  box-shadow: 0 0 15px black;
+  .todo-search-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.25em;
+    justify-content: space-around;
+    background-color: $CDarkerYellow;
+    width: 12em;
+    height: 8em;
+    margin: 0 auto;
+    align-items: center;
+    color: white;
+    input {
+      width: 80%;
+      border-radius: 0.25em;
+      padding: 0.25em 0.5em;
+    }
+    span {
+      display: flex;
+      justify-content: space-between;
+      select {
+        border-radius: 0.25em;
+      }
+    }
+  }
+
+  .todo-list {
+    margin-top: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    gap: 0.5em;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .main-page {
+    .list-container {
+      margin-top: 0;
+      border-radius: 0.25em;
+      width: 75vw;
+      height: 75vh;
+      display: flex;
+      column-gap: 1em;
+      padding: 0 0.5em;
+      align-items: center;
+      box-shadow: none;
+      .todo-search-container {
+        width: 25%;
+        max-width: 230px;
+      }
+      .todo-list {
+        width: 75%;
+        height: 90%;
+        overflow-y: scroll;
+      }
+    }
+  }
 }

@@ -8,7 +8,7 @@
 }
 .add-todo-form {
   color: white;
-  background-color: #b5a526;
+  background-color: #8f810d;
   padding: 1.5em;
   border-radius: 0.25em;
   row-gap: 0.5em;
@@ -32,7 +32,42 @@
   width: 10em;
 }
 
-.todo-list {
+@media screen and (min-width: 1080px) {
+  .add-todo-form {
+    height: 15em;
+  }
+}
+.list-container {
+  background-color: #b5a526;
+  padding-top: 1em;
+  margin-top: 1em;
+  box-shadow: 0 0 15px black;
+}
+.list-container .todo-search-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.25em;
+  justify-content: space-around;
+  background-color: #8f810d;
+  width: 12em;
+  height: 8em;
+  margin: 0 auto;
+  align-items: center;
+  color: white;
+}
+.list-container .todo-search-container input {
+  width: 80%;
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+}
+.list-container .todo-search-container span {
+  display: flex;
+  justify-content: space-between;
+}
+.list-container .todo-search-container span select {
+  border-radius: 0.25em;
+}
+.list-container .todo-list {
   margin-top: 1em;
   display: flex;
   flex-wrap: wrap;
@@ -41,6 +76,32 @@
   justify-content: center;
 }
 
+@media screen and (min-width: 1080px) {
+  .main-page .list-container {
+    margin-top: 0;
+    border-radius: 0.25em;
+    width: 75vw;
+    height: 75vh;
+    display: flex;
+    -moz-column-gap: 1em;
+         column-gap: 1em;
+    padding: 0 0.5em;
+    align-items: center;
+    box-shadow: none;
+  }
+  .main-page .list-container .todo-search-container {
+    width: 25%;
+    max-width: 230px;
+  }
+  .main-page .list-container .todo-list {
+    width: 75%;
+    height: 90%;
+    overflow-y: scroll;
+  }
+}
+.todo-list {
+  list-style-type: none;
+}
 .todo-list .todo-item {
   background-color: #8f810d;
   display: flex;
@@ -54,6 +115,12 @@
 }
 .todo-list .todo-item .created-at-text {
   margin-top: auto;
+}
+.todo-list .todo-item .cursor-pointer {
+  cursor: pointer;
+}
+.todo-list .todo-item .cursor-default {
+  cursor: default;
 }
 
 .header {
@@ -107,6 +174,14 @@
   text-align: center;
 }
 
+@media screen and (min-width: 1080px) {
+  .main-page {
+    display: flex;
+    -moz-column-gap: 1em;
+         column-gap: 1em;
+    margin: 0 1em;
+  }
+}
 .login-form {
   background-color: #8f810d;
   color: white;
@@ -141,7 +216,13 @@ h1 {
   text-align: center;
 }
 
+h1,
+h2 {
+  cursor: default;
+}
+
 button {
+  cursor: pointer;
   background-color: #8f810d;
   color: #fff5a3;
   border: none;
