@@ -32,8 +32,6 @@ async function updateTodo(req:Request, res:Response) {
     const {username} = res.locals.jwtPayload;
     const {id, title, content, expiresAt, state} = req.body;
 
-    if(id === undefined) return createError("id not provided!", 400, res);
-
     const todoUpdate: TodoUpdate = { title, content, expiresAt, state };
 
     const result: ResultSetHeader = await todoService.updateTodo(username, id, todoUpdate);

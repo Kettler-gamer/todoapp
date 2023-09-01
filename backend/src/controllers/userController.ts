@@ -8,9 +8,6 @@ import userErrorHandler from "../errorHandler/userErrorHandler";
 async function createUser(req:Request, res:Response) {
     const {username, password} = req.body;
 
-    if(username === undefined || password === undefined) 
-        return createError("Bad request!", 400, res);
-
     const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT_ROUNDS));
 
     const result: ResultSetHeader[] | void = await userService.createUser(username, hashedPassword)
