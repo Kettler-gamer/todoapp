@@ -1,0 +1,27 @@
+@use "../abstract/variables" as *;
+
+.add-todo-form {
+  color: white;
+  background-color: $CDarkYellow;
+  padding: 1.5em;
+  border-radius: 0.25em;
+  row-gap: 0.5em;
+  display: flex;
+  width: 15em;
+  margin: 0 auto;
+  flex-direction: column;
+  flex-wrap: wrap;
+  box-shadow: 0 0 15px $CDarkYellow;
+  h2 {
+    text-align: center;
+  }
+  input {
+    border-radius: 0.25em;
+    border: none;
+    padding: 0.5em;
+  }
+  button {
+    align-self: center;
+    width: 10em;
+  }
+}

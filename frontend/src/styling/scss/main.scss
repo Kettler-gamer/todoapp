@@ -1,0 +1,32 @@
+@use "./abstract/variables" as *;
+@use "./components/addTodo" as *;
+@use "./components/todoList" as *;
+@use "./components/todoItem" as *;
+@use "./Pages/home" as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Lora", sans-serif;
+}
+
+body {
+  background-color: $CBrightYellow;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  background-color: $CDarkerYellow;
+  color: $CBrighterYellow;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 0.25em;
+  transition: background-color 0.25s;
+}
+
+button:hover {
+  background-color: $CDarkYellow;
+}

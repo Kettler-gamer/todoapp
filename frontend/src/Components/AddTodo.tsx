@@ -44,14 +44,13 @@ export function AddTodo({addTodo}: AddTodoProps): JSX.Element {
     }
 
     return (
-    <div>
+    <form className="add-todo-form" onSubmit={onSubmit}>
         <h2>Add Todo</h2>
-        <form onSubmit={onSubmit}>
-            <input name="title" required value={info.title} onChange={handleChange} placeholder="title"/>
-            <input name="content" required value={info.content} onChange={handleChange} placeholder="content"/>
-            <label htmlFor="expireAt" >Expire at</label>
-            <input id="expireAt" type="datetime-local" onChange={handleDateChange}/>
-            <button type="submit">Add Todo</button>
-        </form>
-    </div>)
+        <input name="title" required value={info.title} onChange={handleChange} placeholder="Title"/>
+        <input name="content" required value={info.content} onChange={handleChange} placeholder="Content"/>
+        <label htmlFor="expireAt" >Expire at:</label>
+        <input id="expireAt" type="datetime-local" onChange={handleDateChange}/>
+        <button type="submit">Add Todo</button>
+    </form>
+    )
 }

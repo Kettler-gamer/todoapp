@@ -1,0 +1,10 @@
+@use "../abstract/variables" as *;
+
+.todo-list {
+  margin-top: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  gap: 0.5em;
+  justify-content: center;
+}

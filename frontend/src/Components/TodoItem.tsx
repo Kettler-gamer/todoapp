@@ -86,7 +86,12 @@ export function TodoItem({todo, updateTodo}: TodoItemProps): JSX.Element {
     async function onExpireAtBlur(){
         setEditExpireAt(false);
 
-        const result = await fetchJson("/todo/update", "PATCH", {id:todo.id, expiresAt: expireAt?.toLocaleString()});
+        if(expireAt === null || expireAt === todo.expiresAt) return;
+
+        const result = await fetchJson("/todo/update", "PATCH", {
+            id:todo.id, 
+            expiresAt: convertToLocalDateFormat(expireAt.toLocaleString())
+        });
 
         const json = await result.json();
 
@@ -98,16 +103,20 @@ export function TodoItem({todo, updateTodo}: TodoItemProps): JSX.Element {
         console.log(json.message);
     }
 
+    function convertToLocalDateFormat(date: string): string{
+        return date.split("T").join(" ").substring(0,16);
+    }
+
     return (
-    <article>
+    <article className="todo-item">
         {editTitle ? <input autoFocus onBlur={onTitleEditBlur} value={title} onChange={onTitleValueChanged}/> : <h3 onClick={titleEditSwitch}>{title}</h3>}
         {editContent ? <input autoFocus onBlur={onContentEditBlur} value={content} onChange={onContentValueChanged}/> : <p onClick={contentEditSwitch}>{content}</p>}
-        <p>Created: {todo.createdAt.toLocaleString().split("T").join(" ").substring(0,16)}</p>
+        <p className="created-at-text">Created: {convertToLocalDateFormat(todo.createdAt.toLocaleString())}</p>
         <p>Expires: {editExpireAt ? <input autoFocus type="datetime-local" onChange={onExpireAtValueChanged} onBlur={onExpireAtBlur}/> : 
         <span onClick={expireAtSwitch}>{todo.expiresAt !== null ? 
-            todo.expiresAt.toLocaleString().split("T").join(" ").substring(0,16) : 
+            convertToLocalDateFormat(todo.expiresAt.toLocaleString()) : 
         "No expiration date"}</span>}</p>
-        <p>Status: 
+        <p className="">Status: 
             <select defaultValue={todo.state} onChange={onStateChange}>
                 <option value={"FINISHED"}>FINISHED</option>
                 <option value={"UNFINISHED"}>UNFINISHED</option>

@@ -8,7 +8,7 @@ interface TodoListProps {
 
 export function TodoList({user, updateTodo}: TodoListProps): JSX.Element{
     return (
-    <div>
+    <div className="todo-list">
         {user.todos.map((todo, index) => <TodoItem key={`todo-${index}`} todo={todo} updateTodo={updateTodo}/>)}
     </div>)
 }

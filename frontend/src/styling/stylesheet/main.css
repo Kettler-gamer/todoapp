@@ -1,0 +1,84 @@
+@font-face {
+  font-family: "Lora";
+  src: url("./../fonts/Lora/Lora-VariableFont_wght.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Lora-italic";
+  src: url("./../fonts/Lora/Lora-Italic-VariableFont_wght.ttf");
+}
+.add-todo-form {
+  color: white;
+  background-color: #b5a526;
+  padding: 1.5em;
+  border-radius: 0.25em;
+  row-gap: 0.5em;
+  display: flex;
+  width: 15em;
+  margin: 0 auto;
+  flex-direction: column;
+  flex-wrap: wrap;
+  box-shadow: 0 0 15px #b5a526;
+}
+.add-todo-form h2 {
+  text-align: center;
+}
+.add-todo-form input {
+  border-radius: 0.25em;
+  border: none;
+  padding: 0.5em;
+}
+.add-todo-form button {
+  align-self: center;
+  width: 10em;
+}
+
+.todo-list {
+  margin-top: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  gap: 0.5em;
+  justify-content: center;
+}
+
+.todo-list .todo-item {
+  background-color: #8f810d;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+  color: white;
+  padding: 1em;
+  width: 15em;
+  height: 11em;
+  border-radius: 0.25em;
+}
+.todo-list .todo-item .created-at-text {
+  margin-top: auto;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Lora", sans-serif;
+}
+
+body {
+  background-color: #d3c447;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  background-color: #8f810d;
+  color: #fff5a3;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 0.25em;
+  transition: background-color 0.25s;
+}
+
+button:hover {
+  background-color: #b5a526;
+}/*# sourceMappingURL=main.css.map */

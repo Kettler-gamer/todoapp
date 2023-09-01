@@ -5,6 +5,7 @@ import { Settings } from "./Pages/Settings";
 import { User } from "./Types/Types";
 import { useEffect, useState } from "react";
 import { fetchUserData } from "./Other/fetchUserData";
+import "./styling/stylesheet/main.css";
 
 function App() {
 
