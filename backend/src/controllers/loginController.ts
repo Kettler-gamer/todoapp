@@ -9,7 +9,10 @@ import { createError } from "../errorHandler/errorHandler";
 async function login(req:Request, res: Response) {
     const {username, password} = req.body;
 
-    const userResult = await loginService.getUser(username);
+    const userResult = await loginService.getUser(username)
+        .catch(error => console.log(error));
+
+    if(userResult === undefined) return createError("Server error", 500, res);
 
     const row = (userResult[0] as RowDataPacket);
         
